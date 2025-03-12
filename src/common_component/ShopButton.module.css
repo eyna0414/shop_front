@@ -1,7 +1,7 @@
 .btn{
   padding: 4px 16px;
   font-size: 0.7rem;
-  background-color: rgba(13, 160, 8, 0.7);
+  background-color: blueviolet;
   color: white;
   border: none;
   border-radius: 4px;
@@ -9,7 +9,7 @@
 }
 
 .btn:hover{
-  background-color: rgba(13, 160, 8, 0.9);
+  background-color: rgb(115, 21, 202);
 }
 
 .small{
