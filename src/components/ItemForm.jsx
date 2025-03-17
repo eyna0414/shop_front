@@ -104,7 +104,12 @@ const ItemForm = () => {
               value={bookData.bookInfo} 
               onChange={e => changeBookData(e)}></textarea>
         </div>
+        <div>
+          <p>도서 이미지</p>
+          <input type='file'/>
+        </div>
       </div>
+      
       <div>
         {/* <button type='button' onClick={e => regBook()}>등 록</button> */}
         <ShopButton 
