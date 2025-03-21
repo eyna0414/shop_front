@@ -2,8 +2,11 @@ import axios from 'axios';
 import React, { useState } from 'react'
 
 const UploadTest = () => {
-  //첨부파일 input 태그에서 선택한 파일 저장할 변수
+  //첨부파일 input 태그에서 선택한 파일을 저장할 변수
   const [firstFile, setFirstFile] = useState(null);
+  
+  //첨부파일 input 태그에서 선택한 여러 파일을 저장할 변수
+  const [secondFiles, setSecondFiles] = useState(null);
 
   //자바로 데이터를 전달할 때 문자뿐만 아니라 파일 데이터도 가져간다는 것을 설정
   const fileConfig = {header:{'Content-type': 'multipart/form-data'}};
@@ -46,6 +49,34 @@ const UploadTest = () => {
       <button 
         type='button'
         onClick={() => {sendFile()}}>파일전송1</button>
+      <br />
+      
+      
+      <input 
+        type="file"
+        //다중파일
+        multiple
+        onChange={(e) => {
+          setSecondFiles(e.target.files)
+        }}
+      />
+      <button 
+        type='button'
+        onClick={() => {
+          //데이터를 저장할 변수
+          const form2 = new FormData();
+          //파일 첨부를 했을 때만.
+          if(secondFiles != null){
+            //첨부한 파일 갯수만큼 formData에 저장
+            for(const eachFile of secondFiles){
+              form2.append('files', eachFile);
+            }
+          }
+          
+
+          axios.post('/api/test/upload2', form2,fileConfig)
+          .then().catch();
+        }}>다중 파일 전송</button>
     </div>
   )
 }

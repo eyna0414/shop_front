@@ -11,6 +11,13 @@ import ShopButton from '../common_component/ShopButton';
 //책 소개 textarea 
 //카테고리코드 select  
 const ItemForm = () => {
+  //첨부파일 input 태그에서 선택한 파일을 저장할 변수
+  const [file, setFile] = useState(null);
+
+  //자바로 데이터를 전달할 때 문자뿐만 아니라 파일 데이터도 가져간다는 것을 설정
+  const fileConfig = {header:{'Content-type' : 'multipart/form-data'}}
+
+
   //카테고리 목록을 저장할 변수
   const [cateList, setCateList] = useState([]);
 
@@ -106,6 +113,9 @@ const ItemForm = () => {
         </div>
         <div>
           <p>도서 이미지</p>
+          {/* 메인 이미지 */}
+          <input type='file'/>
+          {/* 상세 이미지 */}
           <input type='file'/>
         </div>
       </div>

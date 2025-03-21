@@ -49,7 +49,9 @@ export const insertCategory = (newCateName) => {
     bookInfo : ''
   }
  */
-export const insertBook = (bookData) => {
+export const insertBook = (bookData, file, fileConpig) => {
+  const form = new FormData();
+
   const response = axios.post('/api/books', bookData);
   return response;
 }
