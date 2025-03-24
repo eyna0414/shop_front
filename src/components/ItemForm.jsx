@@ -11,13 +11,7 @@ import ShopButton from '../common_component/ShopButton';
 //책 소개 textarea 
 //카테고리코드 select  
 const ItemForm = () => {
-  //첨부파일 input 태그에서 선택한 파일을 저장할 변수
-  const [file, setFile] = useState(null);
-
-  //자바로 데이터를 전달할 때 문자뿐만 아니라 파일 데이터도 가져간다는 것을 설정
-  const fileConfig = {header:{'Content-type' : 'multipart/form-data'}}
-
-
+  
   //카테고리 목록을 저장할 변수
   const [cateList, setCateList] = useState([]);
 
@@ -29,6 +23,11 @@ const ItemForm = () => {
     publisher : '',
     bookInfo : ''
   });
+
+  //첨부파일 input 태그에서 선택한 메인 이미지 파일을 저장할 변수
+  const [mainImg, setMainImg] = useState(null);
+  //첨부파일 input 태그에서 선택한 상세 이미지 파일을 저장할 변수
+  const [subImg, setSubImg] = useState(null);
 
   //카테고리 목록 조회
   useEffect(() => {
@@ -50,7 +49,19 @@ const ItemForm = () => {
 
   //등록 버튼 클릭 시 도서 등록 실행
   const regBook = () => {
-    insertBook(bookData)
+    const regForm = new FormData();
+    //도서 등록 시 (DB에 insert) 필요한 데이터 적재
+    regForm.append('cateCode', bookData.cateCode);
+    regForm.append('bookName', bookData.bookName);
+    regForm.append('bookPrice', bookData.bookPrice);
+    regForm.append('publisher', bookData.publisher);
+    regForm.append('bookInfo', bookData.bookInfo);
+
+    //첨부파일 데이터 적재
+    regForm.append('mainImg', mainImg);
+    regForm.append('subImg', subImg);
+
+    insertBook(regForm)
     .then(res => {
       alert('성공');
     })
@@ -112,11 +123,18 @@ const ItemForm = () => {
               onChange={e => changeBookData(e)}></textarea>
         </div>
         <div>
-          <p>도서 이미지</p>
-          {/* 메인 이미지 */}
-          <input type='file'/>
-          {/* 상세 이미지 */}
-          <input type='file'/>
+          <p>도서 메인 이미지</p>
+          <input 
+            type='file'
+            onChange={e => setMainImg(e.target.files[0])}  
+            />
+        </div>
+        <div>
+          <p>도서 상세 이미지</p>
+          <input 
+            type='file'
+            onChange={e => setSubImg(e.target.files[0])}
+          />
         </div>
       </div>
       
